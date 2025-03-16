@@ -13,7 +13,7 @@ function ProjectDetail() {
   useEffect(() => {
     setLoading(true);
     // Use the same base URL as your main API
-    axios.get(`http://localhost:8000/api/project/${id}/`)
+    axios.get(`https://myweb-peterli.up.railway.app/api/project/${id}/`)
       .then(res => {
         setProject(res.data);
         setLoading(false);
