@@ -1,38 +1,378 @@
-.App {
-  text-align: center;
+/* 基本樣式 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-container {
+  display: flex;
   min-height: 100vh;
+}
+
+/* 側邊欄樣式 */
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 25px 0;
+}
+
+.profile-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #3498db;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image-inner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.nav-links li {
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.nav-links li:hover {
+  background-color: #34495e;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-links li a:visited {
+  color: inherit;
+}
+
+/* 主要內容區域 */
+.content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.section {
+  min-height: 30vh;
+  padding: 60px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.section h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: #3498db;
+}
+
+/* About Me 部分 */
+.about-content {
+  max-width: 800px;
+}
+
+.about-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.about-content h3 {
+  font-size: 1.5rem;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #3498db;
+  padding: 8px 15px;
+  border-radius: 5px;
+  background-color: #f0f8ff;
+  transition: all 0.3s;
+}
+
+.contact-link:hover {
+  background-color: #e1f0fe;
+  transform: translateY(-2px);
+}
+
+/* Portfolio 部分 */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.portfolio-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-image {
+  height: 180px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 20px;
+}
+
+.project-info h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.tech-tag {
+  background-color: #e1f0fe;
+  color: #3498db;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 15px;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.project-link:hover {
+  background-color: #2980b9;
+}
+
+/* Certificate 部分 */
+.certificates-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px;
+}
+
+.certificate-item {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.certificate-item:hover {
+  transform: translateY(-3px);
+}
+
+.certificate-item h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.cert-issuer {
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+.cert-date {
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+/* Education 部分 */
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.education-item {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.education-item h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.edu-dept {
+  color: #34495e;
+  margin-bottom: 5px;
+}
+
+.edu-degree {
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+.edu-period, .edu-expected, .edu-gpa {
+  color: #95a5a6;
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+}
+
+/* Skills 部分 */
+.skills-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill-tag {
+  background-color: #3498db;
   color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  transition: transform 0.2s;
 }
 
-.App-link {
-  color: #61dafb;
+.skill-tag:hover {
+  transform: scale(1.05);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* 證書連結樣式 */
+.cert-link {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.cert-link:hover {
+  color: #3498db;
+  text-decoration: underline;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .content {
+    margin-left: 0;
   }
+  
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 載入和錯誤狀態樣式 */
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: #e74c3c;
 }
