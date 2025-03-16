@@ -14,8 +14,8 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    //axios.get('https://myweb-peterli-test.up.railway.app/api/resume/')
-    axios.get('http://localhost:8000/api/resume/')
+    axios.get('https://myweb-peterli-test.up.railway.app/api/resume/')
+    //axios.get('http://localhost:8000/api/resume/')
       .then(res => {
         setResume(res.data);
         setLoading(false);
