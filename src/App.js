@@ -4,8 +4,7 @@ import axios from 'axios';
 import './App.css';
 import HomePage from './homePage';
 import ProjectDetail from './portfolio/projectDetail/projectDetail';
-import { ASSETS } from './constants';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'; 
+
 
 function App() {
   const [resume, setResume] = useState(null);
