@@ -1,0 +1,170 @@
+:root {
+    --chatbot-primary-color: #007bff; /* Example: A calm blue */
+    --chatbot-primary-hover: #0056b3;
+    --chatbot-background: #ffffff;
+    --chatbot-header-bg: #f8f9fa;
+    --chatbot-messages-bg: #f8f9fa;
+    --chatbot-text-color: #333333;
+    --chatbot-border-color: #e0e0e0;
+    --chatbot-user-msg-bg: var(--chatbot-primary-color);
+    --chatbot-user-msg-text: #ffffff;
+    --chatbot-bot-msg-bg: #e9ecef;
+    --chatbot-bot-msg-text: #333333;
+    --chatbot-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.chatbot-container {
+    width: 360px; /* Slightly narrower */
+    border: 1px solid var(--chatbot-border-color);
+    border-radius: 12px; /* Softer radius */
+    display: flex;
+    flex-direction: column;
+    font-family: var(--chatbot-font-family);
+    margin: 20px auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    background-color: var(--chatbot-background);
+    overflow: hidden; /* Ensures child elements conform to border-radius */
+    transition: height 0.25s ease-out;
+}
+
+.chatbot-container.inactive {
+    height: auto; /* Height of header + input form */
+}
+
+.chatbot-container.active {
+    height: 480px; /* Slightly shorter */
+}
+
+.chatbot-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: var(--chatbot-header-bg);
+    border-bottom: 1px solid var(--chatbot-border-color);
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.chatbot-toggle-button {
+    background: none;
+    border: none;
+    font-size: 1.6rem; /* Icon size */
+    color: var(--chatbot-text-color);
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-toggle-button:hover {
+    color: var(--chatbot-primary-color);
+}
+
+.chatbot-messages {
+    flex-grow: 1;
+    padding: 12px;
+    overflow-y: auto;
+    background-color: var(--chatbot-messages-bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Crucial for flex-grow */
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 16px; 
+    margin-bottom: 10px;
+    line-height: 1.45;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message.user {
+    background-color: var(--chatbot-user-msg-bg);
+    color: var(--chatbot-user-msg-text);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px; /* Slightly different rounding for visual cue */
+}
+
+.message.bot {
+    background-color: var(--chatbot-bot-msg-bg);
+    color: var(--chatbot-bot-msg-text);
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+}
+
+.loading-indicator {
+    padding: 8px 12px;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: #777;
+    text-align: center;
+    background-color: var(--chatbot-messages-bg);
+}
+
+.chatbot-input-form {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border-top: 1px solid var(--chatbot-border-color);
+    background-color: var(--chatbot-background);
+    flex-shrink: 0; /* Prevent input form from shrinking */
+}
+
+.chatbot-input-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--chatbot-border-color);
+    border-radius: 20px; /* Pill shape */
+    margin-right: 8px;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--chatbot-text-color);
+}
+
+.chatbot-input-form input[type="text"]:focus {
+    border-color: var(--chatbot-primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Focus ring */
+}
+
+.chatbot-input-form button {
+    padding: 10px 14px;
+    background-color: var(--chatbot-primary-color);
+    color: white;
+    border: none;
+    border-radius: 20px; /* Pill shape */
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.chatbot-input-form button:hover {
+    background-color: var(--chatbot-primary-hover);
+}
+
+.chatbot-input-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Scrollbar styling (optional, for a more polished look) */
+.chatbot-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 3px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb:hover {
+    background-color: #aaaaaa;
+} 

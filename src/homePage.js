@@ -2,6 +2,7 @@ import React from 'react';
 import ProjectCard from './portfolio/projectCard';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { ASSETS } from './constants';
+import Chatbot from './components/Chatbot';
 
 function HomePage({ resume, scrollToSection }) {
   return (
@@ -23,6 +24,7 @@ function HomePage({ resume, scrollToSection }) {
         </div>
         <ul className="nav-links">
           <li onClick={() => scrollToSection('about')}>About Me</li>
+          <li onClick={() => scrollToSection('chatbot')}>AI Assistant</li>
           <li onClick={() => scrollToSection('portfolio')}>Portfolio</li>
           <li onClick={() => scrollToSection('certificates')}>Certificate</li>
           <li onClick={() => scrollToSection('education')}>Education</li>
@@ -53,6 +55,11 @@ function HomePage({ resume, scrollToSection }) {
               </a>
             </div>
           </div>
+        </section>
+        
+        <section id="chatbot" className="section">
+          <h2>Chat with My AI Assistant</h2>
+          <Chatbot />
         </section>
         
         <section id="portfolio" className="section">
