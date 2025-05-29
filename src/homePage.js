@@ -78,7 +78,10 @@ function HomePage({ resume, scrollToSection }) {
           
           <div className="ai-assistant-content-area">
             <div className="chatbot-wrapper">
-              <Chatbot setExternalInputValue={chatbotInputSetterRef} />
+              <Chatbot 
+                setExternalInputValue={chatbotInputSetterRef} 
+                scrollToSection={scrollToSection}
+              />
             </div>
             
             <div className="page-example-prompts">

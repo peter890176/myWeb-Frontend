@@ -6,50 +6,73 @@ import './Chatbot.css'; // We'll add styles for this later
 const API_ENDPOINT = 'https://j7eeswd4a5.execute-api.us-east-1.amazonaws.com/dev/MyPersonaChatbot'; 
 
 // Add a prop to receive a function to set input value from parent
-function Chatbot({ setExternalInputValue }) {
+// Add scrollToSection prop
+function Chatbot({ setExternalInputValue, scrollToSection }) {
     const [messages, setMessages] = useState([]); // To store chat messages: { text: string, sender: 'user' | 'bot' }
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isChatActive, setIsChatActive] = useState(false); // Controls visibility of message area and button icon
-    const messagesEndRef = useRef(null); // For auto-scrolling to the bottom
+    const messagesEndRef = useRef(null); // Ref is kept, but auto-scroll logic is removed
+    const inputRef = useRef(null);     // Ref for input, auto-focus on expand/submit removed
 
-    // useEffect to sync external input value if provided by parent
+    /* REMOVED: Internal messages auto-scroll useEffect
     useEffect(() => {
-        // This allows parent to set the input value, but Chatbot still controls its own input
-        // If you want the parent to *override* Chatbot's input, you'd setInputValue directly here.
-        // For now, let's assume setExternalInputValue is to *trigger* an action in Chatbot,
-        // or parent will manage the inputValue state entirely and pass it as a prop.
-        // Let's simplify: parent will call a function to set Chatbot's input.
-    }, []); 
-
-    useEffect(() => {
-        // Only scroll if chat is active and messages are visible
+        // This was for internal message auto-scroll
         if (isChatActive && messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+            requestAnimationFrame(() => {
+                // messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+            });
         }
     }, [messages, isChatActive]);
+    */
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
 
+    /* const focusInputWithPreventScroll = (delay = 50) => {
+        // This helper function is no longer used
+        setTimeout(() => {
+            if (inputRef.current) {
+                inputRef.current.focus({ preventScroll: true });
+            }
+        }, delay);
+    }; 
+    */
+
+    useEffect(() => {
+        // For example prompt clicks
+        if (setExternalInputValue) {
+            setExternalInputValue.current = (value) => {
+                setInputValue(value);
+                // No focus management here
+            };
+        }
+    }, [setExternalInputValue]);
+
+    const toggleChatMessagesVisibility = () => {
+        // Simply toggle active state
+        setIsChatActive(prevIsChatActive => !prevIsChatActive);
+        // No focus or scroll management here
+    };
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!inputValue.trim()) return;
 
         if (!isChatActive) {
-            setIsChatActive(true); // Expand message area on first submit if it was closed
+            setIsChatActive(true);
         }
 
         const userMessage = { text: inputValue, sender: 'user' };
         setMessages(prevMessages => [...prevMessages, userMessage]);
-        const currentInput = inputValue; // Store before clearing
+        const currentInput = inputValue;
         setInputValue('');
         setIsLoading(true);
 
         try {
             const response = await axios.post(API_ENDPOINT, {
-                user_query: currentInput // Use the stored input
+                user_query: currentInput
             });
             
             if (response.data && response.data.answer) {
@@ -63,49 +86,22 @@ function Chatbot({ setExternalInputValue }) {
             console.error('Error sending message to chatbot API:', error);
             let detailedError = "Sorry, I'm having trouble connecting. Please try again later.";
             if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error("Error data:", error.response.data);
-                console.error("Error status:", error.response.status);
-                detailedError = `Sorry, there was an issue with the server (Status: ${error.response.status}). Please try again.`;
+                detailedError = `Sorry, there was an issue with the server (Status: ${error.response.status}).`;
                 if (error.response.status === 403) {
-                    detailedError = "Access to the chatbot service is forbidden. Please check the API Gateway CORS configuration and ensure the API is deployed.";
-                } else if (error.response.status === 500 || error.response.status === 502 || error.response.status === 503 || error.response.status === 504) {
-                     detailedError = "The chatbot service seems to be temporarily unavailable or encountered an error. Please try again later.";
+                    detailedError = "Access to the chatbot service is forbidden.";
+                } else if (error.response.status >= 500) {
+                     detailedError = "The chatbot service seems to be temporarily unavailable.";
                 }
             } else if (error.request) {
-                // The request was made but no response was received
-                console.error("Error request:", error.request);
-                detailedError = "No response received from the chatbot service. Please check your internet connection and the API endpoint.";
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error('Error message:', error.message);
+                detailedError = "No response received from the chatbot service.";
             }
             const networkErrorMessage = { text: detailedError, sender: 'bot' };
             setMessages(prevMessages => [...prevMessages, networkErrorMessage]);
         } finally {
             setIsLoading(false);
+            // No focus or scroll management here
         }
     };
-
-    const toggleChatMessagesVisibility = () => {
-        setIsChatActive(!isChatActive);
-    };
-
-    // Expose a function for the parent to set the input value
-    useEffect(() => {
-        if (setExternalInputValue) {
-            setExternalInputValue.current = (value) => {
-                setInputValue(value);
-                // if (!isChatActive) setIsChatActive(true); // Removed: Do not expand on prompt click
-                 // Focus the input field after clicking a prompt
-                const inputField = document.querySelector('.chatbot-input-form input[type="text"]');
-                if (inputField) {
-                    inputField.focus();
-                }
-            };
-        }
-    }, [setExternalInputValue]); // Removed isChatActive from dependencies as it's no longer set here
 
     return (
         <div className={`chatbot-container ${isChatActive ? 'active' : 'inactive'}`}>
@@ -135,6 +131,7 @@ function Chatbot({ setExternalInputValue }) {
             
             <form onSubmit={handleSubmit} className="chatbot-input-form"> {/* Form is now direct child */}
                 <input
+                    ref={inputRef} // Assign ref to the input field
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
