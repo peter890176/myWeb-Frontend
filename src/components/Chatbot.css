@@ -14,13 +14,14 @@
 }
 
 .chatbot-container {
+    position: relative; /* Needed for absolute positioning of the tag */
     width: 360px; /* Slightly narrower */
     border: 1px solid var(--chatbot-border-color);
     border-radius: 12px; /* Softer radius */
     display: flex;
     flex-direction: column;
     font-family: var(--chatbot-font-family);
-    margin: 20px auto;
+    margin: 20px auto; /* This might be handled by the parent layout now */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
     background-color: var(--chatbot-background);
     overflow: hidden; /* Ensures child elements conform to border-radius */
@@ -109,49 +110,42 @@
     background-color: var(--chatbot-messages-bg);
 }
 
+/* Adjust .chatbot-input-form as it's now a direct child in some states */
 .chatbot-input-form {
     display: flex;
-    align-items: center;
-    padding: 10px 12px;
-    border-top: 1px solid var(--chatbot-border-color);
-    background-color: var(--chatbot-background);
+    /* flex-grow: 1; /* This might not be needed if form is not meant to grow inside its direct parent */
+    padding: 8px; /* Add padding for spacing */
+    border-top: 1px solid var(--chatbot-border-color, #e0e0e0); /* Add border for separation */
+    background-color: var(--chatbot-background, #fff); /* Ensure it has a background */
     flex-shrink: 0; /* Prevent input form from shrinking */
 }
 
 .chatbot-input-form input[type="text"] {
     flex-grow: 1;
-    padding: 10px 14px;
-    border: 1px solid var(--chatbot-border-color);
-    border-radius: 20px; /* Pill shape */
-    margin-right: 8px;
-    outline: none;
-    font-size: 0.9rem;
-    color: var(--chatbot-text-color);
+    padding: 10px;
+    border: 1px solid var(--chatbot-border-color, #ccc);
+    border-right: none; 
+    border-radius: 4px 0 0 4px; 
+    font-size: 1em;
+    outline: none; /* Remove default outline */
 }
-
 .chatbot-input-form input[type="text"]:focus {
-    border-color: var(--chatbot-primary-color);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Focus ring */
+    border-color: var(--chatbot-primary-color, #007bff); /* Highlight on focus */
 }
 
 .chatbot-input-form button {
-    padding: 10px 14px;
-    background-color: var(--chatbot-primary-color);
+    padding: 10px 15px;
+    background-color: var(--chatbot-primary-color, #007bff);
     color: white;
     border: none;
-    border-radius: 20px; /* Pill shape */
+    border-radius: 0 4px 4px 0; 
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 1em;
     transition: background-color 0.2s ease;
 }
 
-.chatbot-input-form button:hover {
-    background-color: var(--chatbot-primary-hover);
-}
-
 .chatbot-input-form button:disabled {
-    background-color: #cccccc;
+    background-color: #aaa;
     cursor: not-allowed;
 }
 
@@ -167,4 +161,20 @@
 
 .chatbot-messages::-webkit-scrollbar-thumb:hover {
     background-color: #aaaaaa;
+}
+
+.chatbot-ai-tag {
+    position: absolute;
+    top: 8px; 
+    left: 8px; 
+    background-color: transparent; /* Transparent background */
+    color: #000; /* Black text color */
+    padding: 4px 10px; 
+    font-size: 1.1em; 
+    font-weight: 600; /* Slightly bolder for better visibility on transparent */
+    border-radius: 12px; 
+    z-index: 10; 
+    letter-spacing: 0.5px;
+    /* Optional: Add a subtle text shadow for better readability on varied backgrounds */
+    /* text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.7); */ 
 } 

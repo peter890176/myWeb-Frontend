@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ProjectCard from './portfolio/projectCard';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { ASSETS } from './constants';
 import Chatbot from './components/Chatbot';
+import './homePage.css';
+
+// English example prompts
+const examplePromptsForPage = [
+    { id: 'ex1', text: "What are your technical skills?" },
+    { id: 'ex2', text: "What's your view on AI?" },
+    { id: 'ex3', text: "What are your hobbies?" },
+];
 
 function HomePage({ resume, scrollToSection }) {
+  const chatbotInputSetterRef = useRef(null);
+
+  const handlePageExampleClick = (promptText) => {
+      if (chatbotInputSetterRef.current) {
+          chatbotInputSetterRef.current(promptText);
+      }
+  };
+
   return (
     <div className="app-container">
       <nav className="sidebar">
@@ -59,7 +75,27 @@ function HomePage({ resume, scrollToSection }) {
         
         <section id="chatbot" className="section">
           <h2>Chat with My AI Assistant</h2>
-          <Chatbot />
+          
+          <div className="ai-assistant-content-area">
+            <div className="chatbot-wrapper">
+              <Chatbot setExternalInputValue={chatbotInputSetterRef} />
+            </div>
+            
+            <div className="page-example-prompts">
+              <div className="example-buttons-row">
+                <h4>Try Asking:</h4>
+                {examplePromptsForPage.map((prompt) => (
+                  <button 
+                    key={prompt.id} 
+                    onClick={() => handlePageExampleClick(prompt.text)}
+                    className="page-example-prompt-button"
+                  >
+                    {prompt.text}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
         
         <section id="portfolio" className="section">

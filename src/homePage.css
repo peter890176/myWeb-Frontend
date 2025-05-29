@@ -1,0 +1,85 @@
+/* CSS for HomePage layout - example prompts and chatbot area */
+
+#chatbot.section {
+    /* padding: 20px; /* Example padding for the whole section */
+    /* You might want to ensure this section has enough bottom margin if it's the last one */
+}
+
+#chatbot.section > h2 { /* Styling for "Chat with My AI Assistant" title */
+    text-align: left; /* Ensure the main title is left-aligned */
+    margin-bottom: 25px; 
+    font-size: 2em; /* Example: Make the main title larger */
+    color: #333; /* Or your theme's heading color */
+}
+
+/* This container will hold both example prompts and the chatbot wrapper, stacked vertically */
+.ai-assistant-content-area {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; /* Center the children (prompts block and chatbot block) */
+    gap: -10px; /* Reduced space between the chatbot block and the prompts block */
+    padding: 10px; /* Add some padding if the section itself doesn't have enough */
+}
+
+.page-example-prompts {
+    display: flex; /* It's now a flex container for .example-buttons-row */
+    justify-content: center; /* Center the .example-buttons-row if it's narrower */
+    width: 100%; 
+    max-width: 100%; 
+}
+
+.example-buttons-row { /* New style for the row of buttons */
+    display: flex;
+    flex-direction: row; /* Arrange "Try Asking:" and buttons horizontally */
+    align-items: center; /* Vertically align "Try Asking:" and buttons */
+    justify-content: center; 
+    gap: 10px; 
+    flex-wrap: wrap; 
+}
+
+.page-example-prompts h4 { /* Styling for "Try Asking:" */
+    margin-top: 0;
+    margin-bottom: 0; /* Remove bottom margin as it's now part of the flex row */
+    margin-right: 10px; /* Add some space between "Try Asking:" and the first button */
+    font-size: 1.2em;    
+    color: #444;       
+    font-weight: 600;
+}
+
+.page-example-prompt-button {
+    background-color: #f8f9fa; 
+    color: var(--chatbot-primary-color, #007bff); 
+    border: 1px solid var(--chatbot-primary-color, #007bff); 
+    border-radius: 20px; /* More rounded, pill-like shape */
+    padding: 6px 18px; /* Reduced vertical padding, adjusted horizontal padding slightly */
+    font-size: 0.9em;  /* Slightly smaller font for prompts */
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center; 
+    width: auto; 
+    min-width: 220px; /* Increased min-width */
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+}
+
+.page-example-prompt-button:hover {
+    background-color: var(--chatbot-primary-color, #007bff);
+    color: white;
+    border-color: var(--chatbot-primary-hover, #0056b3);
+    transform: translateY(-2px); /* More noticeable lift effect */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.chatbot-wrapper {
+    width: 100%; 
+    display: flex;      
+    justify-content: center; 
+    /* The Chatbot component itself (chatbot-container) has a width of 360px and margin: 20px auto */
+    /* So, this wrapper will center it if the .ai-assistant-content-area is wider */
+}
+
+/* Optional: If you want to ensure the Chatbot component doesn't add extra top margin 
+   when it's already spaced by the gap in .ai-assistant-content-area */
+/* .chatbot-wrapper .chatbot-container {
+    margin-top: 0; 
+} */ 

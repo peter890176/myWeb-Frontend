@@ -5,12 +5,22 @@ import './Chatbot.css'; // We'll add styles for this later
 // Replace with your actual API Gateway endpoint
 const API_ENDPOINT = 'https://j7eeswd4a5.execute-api.us-east-1.amazonaws.com/dev/MyPersonaChatbot'; 
 
-function Chatbot() {
+// Add a prop to receive a function to set input value from parent
+function Chatbot({ setExternalInputValue }) {
     const [messages, setMessages] = useState([]); // To store chat messages: { text: string, sender: 'user' | 'bot' }
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isChatActive, setIsChatActive] = useState(false); // Controls visibility of message area and button icon
     const messagesEndRef = useRef(null); // For auto-scrolling to the bottom
+
+    // useEffect to sync external input value if provided by parent
+    useEffect(() => {
+        // This allows parent to set the input value, but Chatbot still controls its own input
+        // If you want the parent to *override* Chatbot's input, you'd setInputValue directly here.
+        // For now, let's assume setExternalInputValue is to *trigger* an action in Chatbot,
+        // or parent will manage the inputValue state entirely and pass it as a prop.
+        // Let's simplify: parent will call a function to set Chatbot's input.
+    }, []); 
 
     useEffect(() => {
         // Only scroll if chat is active and messages are visible
@@ -82,8 +92,24 @@ function Chatbot() {
         setIsChatActive(!isChatActive);
     };
 
+    // Expose a function for the parent to set the input value
+    useEffect(() => {
+        if (setExternalInputValue) {
+            setExternalInputValue.current = (value) => {
+                setInputValue(value);
+                // if (!isChatActive) setIsChatActive(true); // Removed: Do not expand on prompt click
+                 // Focus the input field after clicking a prompt
+                const inputField = document.querySelector('.chatbot-input-form input[type="text"]');
+                if (inputField) {
+                    inputField.focus();
+                }
+            };
+        }
+    }, [setExternalInputValue]); // Removed isChatActive from dependencies as it's no longer set here
+
     return (
         <div className={`chatbot-container ${isChatActive ? 'active' : 'inactive'}`}>
+            <div className="chatbot-ai-tag">Peter's Agent</div>
             <div className="chatbot-header">
                 <button 
                     onClick={toggleChatMessagesVisibility} 
@@ -107,8 +133,7 @@ function Chatbot() {
                 </div>
             )}
             
-            {/* Input form is always visible */} 
-            <form onSubmit={handleSubmit} className="chatbot-input-form">
+            <form onSubmit={handleSubmit} className="chatbot-input-form"> {/* Form is now direct child */}
                 <input
                     type="text"
                     value={inputValue}
