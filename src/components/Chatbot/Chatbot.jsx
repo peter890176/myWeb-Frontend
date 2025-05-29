@@ -145,4 +145,4 @@ function Chatbot({ setExternalInputValue, scrollToSection }) {
     );
 }
 
-export default Chatbot;
+export default Chatbot; 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './projectDetail.css';
+import './ProjectDetail.css';
 
 function ProjectDetail() {
   const { id } = useParams();
@@ -104,4 +104,4 @@ function ProjectDetail() {
   );
 }
 
-export default ProjectDetail;
+export default ProjectDetail; 

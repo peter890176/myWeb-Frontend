@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-import HomePage from './homePage';
-import ProjectDetail from './portfolio/projectDetail/projectDetail';
+import HomePage from './pages/HomePage/HomePage';
+import ProjectDetail from './pages/ProjectDetailPage/ProjectDetail';
 
 
 function App() {

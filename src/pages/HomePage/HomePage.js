@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
-import ProjectCard from './portfolio/projectCard';
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import { ASSETS } from './constants';
-import Chatbot from './components/Chatbot';
-import './homePage.css';
+import { ASSETS } from '../../constants';
+import Chatbot from '../../components/Chatbot/Chatbot';
+import './HomePage.css';
 
 // English example prompts
 const examplePromptsForPage = [
@@ -162,4 +162,4 @@ function HomePage({ resume, scrollToSection }) {
   );
 }
 
-export default HomePage;
+export default HomePage; 
