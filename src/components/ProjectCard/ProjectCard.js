@@ -33,12 +33,24 @@ function ProjectCard({ project }) {
             ))}
           </div>
         )}
-        <button 
-          onClick={handleViewProject} 
-          className="project-link"
-        >
-          View Project
-        </button>
+        <div className="project-buttons-container">
+          <button 
+            onClick={handleViewProject} 
+            className="project-link"
+          >
+            View Project
+          </button>
+          {project.link && (
+            <a 
+              href={project.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="project-link"
+            >
+              Live Demo
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

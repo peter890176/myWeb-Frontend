@@ -176,6 +176,8 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .portfolio-card:hover {
@@ -195,6 +197,9 @@ body {
 
 .project-info {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .project-info h3 {
@@ -217,9 +222,14 @@ body {
   font-size: 0.8rem;
 }
 
+.project-buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
 .project-link {
   display: inline-block;
-  margin-top: 15px;
   padding: 8px 15px;
   background-color: #3498db;
   color: white;
