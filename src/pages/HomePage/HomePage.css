@@ -83,3 +83,39 @@
 /* .chatbot-wrapper .chatbot-container {
     margin-top: 0; 
 } */ 
+
+.past-projects-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.toggle-projects-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.toggle-projects-button:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.past-projects-grid {
+    margin-top: 20px;
+}
+
+.past-projects-grid h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+} 

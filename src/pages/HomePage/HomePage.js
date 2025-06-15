@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { ASSETS } from '../../constants';
@@ -13,6 +13,7 @@ const examplePromptsForPage = [
 ];
 
 function HomePage({ resume, scrollToSection }) {
+  const [showPastProjects, setShowPastProjects] = useState(false);
   const chatbotInputSetterRef = useRef(null);
 
   const handlePageExampleClick = (promptText) => {
@@ -20,6 +21,9 @@ function HomePage({ resume, scrollToSection }) {
           chatbotInputSetterRef.current(promptText);
       }
   };
+
+  const recentProjects = resume.portfolio ? resume.portfolio.slice(0, 2) : [];
+  const pastProjects = resume.portfolio ? resume.portfolio.slice(2) : [];
 
   return (
     <div className="app-container">
@@ -102,12 +106,34 @@ function HomePage({ resume, scrollToSection }) {
         </section>
         
         <section id="portfolio" className="section">
-          <h2>Portfolio</h2>
+          <h2>Recent Projects</h2>
           <div className="portfolio-grid">
-            {resume.portfolio && resume.portfolio.map((project, i) => (
-              <ProjectCard key={i} project={project} />
+            {recentProjects.map((project, i) => (
+              <ProjectCard key={`recent-${i}`} project={project} />
             ))}
           </div>
+          
+          {pastProjects.length > 0 && (
+            <div className="past-projects-container">
+              <button 
+                onClick={() => setShowPastProjects(!showPastProjects)} 
+                className="toggle-projects-button"
+              >
+                {showPastProjects ? 'Hide Past Projects' : 'Show Past Projects'}
+              </button>
+              
+              {showPastProjects && (
+                <div className="past-projects-grid">
+                  <h3>Past Projects</h3>
+                  <div className="portfolio-grid">
+                    {pastProjects.map((project, i) => (
+                      <ProjectCard key={`past-${i}`} project={project} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </section>
         
         <section id="certificates" className="section">
