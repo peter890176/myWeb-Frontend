@@ -40,7 +40,7 @@ function ProjectCard({ project }) {
           >
             View Project
           </button>
-          {project.link && (
+          {project.link && project.link !== '#' && (
             <a 
               href={project.link} 
               target="_blank" 
